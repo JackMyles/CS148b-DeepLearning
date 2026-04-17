@@ -7,6 +7,20 @@ import numpy.typing as npt
 import torch
 from jaxtyping import Bool, Float, Int
 from torch import Tensor
+from eecs148b_hw1.tokenizer import Tokenizer
+from eecs148b_hw1.train_bpe import train_bpe
+from eecs148b_hw1.linear import Linear
+from eecs148b_hw1.multihead_self_attention import MultiheadSelfAttention
+from eecs148b_hw1.sinusoidal_positional_embedding import SinusoidalPositionalEmbedding
+from eecs148b_hw1.embedding import Embedding
+from eecs148b_hw1.positionwise_feedforward import PositionwiseFeedForward
+from eecs148b_hw1.layernorm import LayerNorm
+from eecs148b_hw1.cross_entropy import cross_entropy
+from eecs148b_hw1.data_loading import get_batch
+from eecs148b_hw1.softmax import softmax
+from eecs148b_hw1.scaled_dot_product_attention import scaled_dot_product_attention
+from eecs148b_hw1.transformer_block import TransformerBlock
+from eecs148b_hw1.transformer_lm import TransformerLM
 
 
 def run_linear(
@@ -27,7 +41,9 @@ def run_linear(
     Returns:
         Float[Tensor, "... d_out"]: The transformed output of your linear module.
     """
-    raise NotImplementedError
+    linear = Linear(d_in, d_out, device=weights.device, dtype=weights.dtype)
+    linear.load_state_dict({"weight": weights})
+    return linear(in_features)
 
 
 def run_embedding(
@@ -48,7 +64,9 @@ def run_embedding(
     Returns:
         Float[Tensor, "... d_model"]: Batch of embeddings returned by your Embedding layer.
     """
-    raise NotImplementedError
+    embedding = Embedding(vocab_size, d_model, device=weights.device, dtype=weights.dtype)
+    embedding.load_state_dict({"weight": weights})
+    return embedding(token_ids)
 
 
 def run_ffn(
@@ -77,7 +95,9 @@ def run_ffn(
     # You can also manually assign the weights
     # ffn.fc1.weight.data = w1_weight
     # ffn.fc2.weight.data = w2_weight
-    raise NotImplementedError
+    positionwise_feedforward = PositionwiseFeedForward(d_model, d_ff, device=w1_weight.device, dtype=w1_weight.dtype)
+    positionwise_feedforward.load_state_dict({"fc1.weight": w1_weight, "fc2.weight": w2_weight})
+    return positionwise_feedforward(in_features)
 
 
 def run_layernorm(
@@ -100,7 +120,9 @@ def run_layernorm(
     Returns:
         Float[Tensor, "... d_model"]: Tensor with the output of running LayerNorm on `in_features`.
     """
-    raise NotImplementedError
+    layer_norm = LayerNorm(d_model, eps, device=weight.device, dtype=weight.dtype)
+    layer_norm.load_state_dict({"weight": weight, "bias": bias})
+    return layer_norm(in_features)
 
 
 def run_sinusoidal_pe(
@@ -109,7 +131,13 @@ def run_sinusoidal_pe(
     token_positions: Int[Tensor, " ... sequence_length"],
 ) -> Float[Tensor, " ... sequence_length d_model"]:
     """Return sinusoidal positional embeddings for the given token positions."""
-    raise NotImplementedError
+    pe = SinusoidalPositionalEmbedding(
+        d_model,
+        max_seq_len,
+        device=token_positions.device,
+        dtype=torch.float32,
+    )
+    return pe(token_positions)
 
 
 def run_scaled_dot_product_attention(
@@ -130,7 +158,7 @@ def run_scaled_dot_product_attention(
     Returns:
         Float[Tensor, " ... queries d_v"]: Output of SDPA
     """
-    raise NotImplementedError
+    return scaled_dot_product_attention(Q, K, V, mask)
 
 
 def run_multihead_self_attention(
@@ -164,7 +192,21 @@ def run_multihead_self_attention(
         Float[Tensor, " ... sequence_length d_out"]: Tensor with the output of running your optimized, batched multi-headed attention
         implementation with the given QKV projection weights and input features.
     """
-    raise NotImplementedError
+    mha = MultiheadSelfAttention(
+        d_model,
+        num_heads,
+        device=in_features.device,
+        dtype=in_features.dtype,
+    )
+    mha.load_state_dict(
+        {
+            "q_proj.weight": q_proj_weight,
+            "k_proj.weight": k_proj_weight,
+            "v_proj.weight": v_proj_weight,
+            "output_proj.weight": o_proj_weight,
+        }
+    )
+    return mha(in_features)
 
 
 def run_transformer_block(
@@ -233,7 +275,15 @@ def run_transformer_block(
         Float[Tensor, "batch sequence_length d_model"] Tensor with the output of
         running the Transformer block on the input features.
     """
-    raise NotImplementedError
+    transformer_block = TransformerBlock(
+        d_model,
+        num_heads,
+        d_ff,
+        device=in_features.device,
+        dtype=in_features.dtype,
+    )
+    transformer_block.load_state_dict(weights)
+    return transformer_block(in_features)
 
 
 def run_transformer_lm(
@@ -317,7 +367,19 @@ def run_transformer_lm(
         Float[Tensor, "batch_size sequence_length vocab_size"]: Tensor with the predicted unnormalized
         next-word distribution for each token.
     """
-    raise NotImplementedError
+    weight_dtype = weights["token_embeddings.weight"].dtype
+    lm = TransformerLM(
+        vocab_size=vocab_size,
+        context_length=context_length,
+        d_model=d_model,
+        num_layers=num_layers,
+        num_heads=num_heads,
+        d_ff=d_ff,
+        device=in_indices.device,
+        dtype=weight_dtype,
+    )
+    lm.load_state_dict(weights)
+    return lm(in_indices)
 
 
 def run_get_batch(
@@ -340,7 +402,7 @@ def run_get_batch(
         is the sampled input sequences, and the second tuple item is the corresponding
         language modeling labels.
     """
-    raise NotImplementedError
+    return get_batch(dataset, batch_size, context_length, device)
 
 
 def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, " ..."]:
@@ -356,7 +418,7 @@ def run_softmax(in_features: Float[Tensor, " ..."], dim: int) -> Float[Tensor, "
         Float[Tensor, "..."]: Tensor of with the same shape as `in_features` with the output of
         softmax normalizing the specified `dim`.
     """
-    raise NotImplementedError
+    return softmax(in_features, dim)
 
 
 def run_cross_entropy(
@@ -374,7 +436,7 @@ def run_cross_entropy(
     Returns:
         Float[Tensor, ""]: The average cross-entropy loss across examples.
     """
-    raise NotImplementedError
+    return cross_entropy(inputs, targets)
 
 
 def get_tokenizer(
@@ -397,7 +459,7 @@ def get_tokenizer(
     Returns:
         A BPE tokenizer that uses the provided vocab, merges, and special tokens.
     """
-    raise NotImplementedError
+    return Tokenizer(vocab, merges, special_tokens)
 
 
 def run_train_bpe(
@@ -427,4 +489,4 @@ def run_train_bpe(
                 representing that <token1> was merged with <token2>.
                 Merges are ordered by order of creation.
     """
-    raise NotImplementedError
+    return train_bpe(input_path, vocab_size, special_tokens)
