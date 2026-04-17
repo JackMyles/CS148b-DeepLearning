@@ -1,0 +1,17 @@
+{"_config": {"train_tokens": "artifacts/tinystories_tokenized/train_tokens.npy", "val_tokens": "artifacts/tinystories_tokenized/valid_tokens.npy", "checkpoint_dir": "checkpoints/nope", "vocab_size": 10000, "context_length": 256, "d_model": 512, "num_layers": 4, "num_heads": 8, "d_ff": 2048, "batch_size": 64, "lr": 0.0003, "weight_decay": 0.01, "max_steps": 500, "log_interval": 50, "eval_interval": 100, "eval_steps": 50, "save_interval": 500, "device": "cpu", "run_name": "nope", "log_dir": "logs", "overfit": false, "no_layernorm": false, "no_pos_emb": true}}
+{"step": 1, "train_loss": 9.259328842163086, "train_ppl": 10502.082419654798, "wallclock": 5.720499038696289}
+{"step": 50, "train_loss": 4.583090782165527, "train_ppl": 97.81625621209656, "wallclock": 257.6494221687317}
+{"step": 100, "train_loss": 4.048094272613525, "train_ppl": 57.28817730141467, "wallclock": 518.7251498699188}
+{"step": 100, "val_loss": 3.951213436126709, "val_ppl": 51.99842533619711}
+{"step": 150, "train_loss": 3.7390294075012207, "train_ppl": 42.057149994316845, "wallclock": 848.5241360664368}
+{"step": 200, "train_loss": 3.6619088649749756, "train_ppl": 38.93559477350138, "wallclock": 1107.4725949764252}
+{"step": 200, "val_loss": 3.5569973468780516, "val_ppl": 35.05777261727328}
+{"step": 250, "train_loss": 3.35939884185791, "train_ppl": 28.771889223778025, "wallclock": 1437.9880630970001}
+{"step": 300, "train_loss": 3.349609375, "train_ppl": 28.491601937740562, "wallclock": 1699.3105101585388}
+{"step": 300, "val_loss": 3.2872441148757936, "val_ppl": 26.768989648153166}
+{"step": 350, "train_loss": 3.2297544479370117, "train_ppl": 25.27345026110843, "wallclock": 2020.3246550559998}
+{"step": 400, "train_loss": 3.1297082901000977, "train_ppl": 22.86730794929031, "wallclock": 2273.743669986725}
+{"step": 400, "val_loss": 3.09004075050354, "val_ppl": 21.977973571005123}
+{"step": 450, "train_loss": 3.066596508026123, "train_ppl": 21.468709608806893, "wallclock": 2598.7012119293213}
+{"step": 500, "train_loss": 2.9588003158569336, "train_ppl": 19.274834166468725, "wallclock": 2857.2392370700836}
+{"step": 500, "val_loss": 2.9250574350357055, "val_ppl": 18.635296338073246}

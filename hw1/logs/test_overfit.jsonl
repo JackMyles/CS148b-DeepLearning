@@ -1,0 +1,7 @@
+{"_config": {"train_tokens": "artifacts/tinystories_tokenized/train_tokens.npy", "val_tokens": "artifacts/tinystories_tokenized/valid_tokens.npy", "checkpoint_dir": "/tmp/test_overfit", "vocab_size": 10000, "context_length": 256, "d_model": 512, "num_layers": 4, "num_heads": 8, "d_ff": 2048, "batch_size": 2, "lr": 0.001, "weight_decay": 0.01, "max_steps": 50, "log_interval": 10, "eval_interval": 50, "eval_steps": 2, "save_interval": 50, "device": "cpu", "run_name": "test_overfit", "log_dir": "logs", "overfit": true}}
+{"step": 10, "train_loss": 3.9849634170532227, "train_ppl": 53.78332188949768, "wallclock": 2.426387310028076}
+{"step": 20, "train_loss": 1.5776324272155762, "train_ppl": 4.843474946243822, "wallclock": 5.544095039367676}
+{"step": 30, "train_loss": 0.4683934152126312, "train_ppl": 1.5974257306655482, "wallclock": 7.9692370891571045}
+{"step": 40, "train_loss": 0.12310877442359924, "train_ppl": 1.1310074389390194, "wallclock": 9.926682233810425}
+{"step": 50, "train_loss": 0.0189898069947958, "train_ppl": 1.0191712601465046, "wallclock": 11.764541149139404}
+{"step": 50, "val_loss": 7.602210998535156, "val_ppl": 2002.6187910075478}

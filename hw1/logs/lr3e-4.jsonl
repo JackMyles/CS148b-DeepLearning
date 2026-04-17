@@ -1,0 +1,26 @@
+{"_config": {"run_name": "lr3e-4", "vocab_size": 10000, "context_length": 256, "d_model": 512, "num_layers": 4, "num_heads": 8, "d_ff": 2048, "batch_size": 64, "lr": 0.0003, "weight_decay": 0.01, "max_steps": 2500, "device": "cpu"}}
+{"step": 100, "train_loss": 4.0304, "train_ppl": 56.28, "wallclock": 564.8}
+{"step": 200, "train_loss": 3.5165, "train_ppl": 33.67, "wallclock": 1126.1}
+{"step": 300, "train_loss": 3.1302, "train_ppl": 22.88, "wallclock": 1663.7}
+{"step": 400, "train_loss": 2.9422, "train_ppl": 18.96, "wallclock": 2202.0}
+{"step": 500, "train_loss": 2.8576, "train_ppl": 17.42, "wallclock": 2750.4, "val_loss": 2.7964, "val_ppl": 16.38}
+{"step": 600, "train_loss": 2.6825, "train_ppl": 14.62, "wallclock": 3377.0}
+{"step": 700, "train_loss": 2.6334, "train_ppl": 13.92, "wallclock": 3915.4}
+{"step": 800, "train_loss": 2.5842, "train_ppl": 13.25, "wallclock": 4462.1}
+{"step": 900, "train_loss": 2.5891, "train_ppl": 13.32, "wallclock": 4999.7}
+{"step": 1000, "train_loss": 2.4919, "train_ppl": 12.08, "wallclock": 5544.8, "val_loss": 2.4024, "val_ppl": 11.05}
+{"step": 1100, "train_loss": 2.3181, "train_ppl": 10.16, "wallclock": 6163.9}
+{"step": 1200, "train_loss": 2.3312, "train_ppl": 10.29, "wallclock": 6709.6}
+{"step": 1300, "train_loss": 2.2771, "train_ppl": 9.75, "wallclock": 7247.3}
+{"step": 1400, "train_loss": 2.2038, "train_ppl": 9.06, "wallclock": 7760.9}
+{"step": 1500, "train_loss": 2.2461, "train_ppl": 9.45, "wallclock": 8300.7, "val_loss": 2.1743, "val_ppl": 8.8}
+{"step": 1600, "train_loss": 2.1288, "train_ppl": 8.41, "wallclock": 8925.3}
+{"step": 1700, "train_loss": 2.1665, "train_ppl": 8.73, "wallclock": 9458.9}
+{"step": 1800, "train_loss": 2.0721, "train_ppl": 7.94, "wallclock": 9990.0}
+{"step": 1900, "train_loss": 2.0608, "train_ppl": 7.85, "wallclock": 10534.8}
+{"step": 2000, "train_loss": 1.9436, "train_ppl": 6.98, "wallclock": 11081.5, "val_loss": 2.0574, "val_ppl": 7.83}
+{"step": 2100, "train_loss": 1.9902, "train_ppl": 7.32, "wallclock": 11696.8}
+{"step": 2200, "train_loss": 2.0538, "train_ppl": 7.8, "wallclock": 12232.5}
+{"step": 2300, "train_loss": 1.9317, "train_ppl": 6.9, "wallclock": 12766.6}
+{"step": 2400, "train_loss": 1.9682, "train_ppl": 7.16, "wallclock": 13315.3}
+{"step": 2500, "train_loss": 2.0017, "train_ppl": 7.4, "wallclock": 13857.3, "val_loss": 1.9599, "val_ppl": 7.1}
